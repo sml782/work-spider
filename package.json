@@ -1,0 +1,23 @@
+{
+  "name": "work-spider",
+  "version": "0.0.1",
+  "description": "爬虫实例",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sml782/work-spider.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sml782/work-spider/issues"
+  },
+  "homepage": "https://github.com/sml782/work-spider#readme",
+  "dependencies": {
+    "crawler": "^1.2.2"
+  }
+}

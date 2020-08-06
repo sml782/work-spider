@@ -4,6 +4,7 @@ const findChrome = require('carlo/lib/find_chrome.js');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
 const url = require('url');
+const jimp = require('jimp');
 
 async function mobileLogin(page) {
   const phoneBtn = await page.$('div.others-item .item-text');
@@ -65,6 +66,10 @@ async function weixinGetImg(browser, iframeUrl) {
   return fullSrc;
 }
 
+async function decodeImgSrc(imgSrc) {
+  const imgBuffer = await jimp.read(imgSrc);
+}
+
 // async function weixinLogin(page) {
 //   const frame = page.frames().find(frame => frame.name() === 'myframe');
 // }
@@ -119,6 +124,7 @@ async function weixinGetImg(browser, iframeUrl) {
   // console.log(frameEleSrc);
   const qrcodeSrc = await weixinGetImg(browser, frameEleSrc);
   console.log(qrcodeSrc);
+
 
   await page.waitForNavigation();
   await page.waitFor('#app > div.home-area.router-view > div.type-course > div > div.ivu-tabs-content > div:nth-child(1) > div > div > div > div:nth-child(2) > div.dake');

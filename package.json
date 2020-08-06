@@ -22,16 +22,22 @@
     "clean": "ets clean"
   },
   "dependencies": {
+    "carlo": "^0.9.46",
+    "chalk": "^4.1.0",
     "cheerio": "^1.0.0-rc.3",
     "crawler": "^1.2.2",
     "egg": "^2.6.1",
     "egg-scripts": "^2.6.0",
+    "inquirer": "^7.3.3",
+    "puppeteer-core": "^5.2.1",
     "superagent": "^5.3.1"
   },
   "devDependencies": {
+    "@types/carlo": "^0.9.1",
     "@types/cheerio": "^0.22.21",
     "@types/mocha": "^2.2.40",
     "@types/node": "^7.0.12",
+    "@types/puppeteer-core": "^2.0.0",
     "@types/superagent": "^4.1.8",
     "@types/supertest": "^2.0.0",
     "autod": "^3.0.1",

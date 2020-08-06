@@ -6,4 +6,5 @@ export default (app: Application) => {
   router.get('/', controller.home.index);
   router.get('/spider-c', controller.crawler.index);
   router.get('/spider-p', controller.puppeteer.index);
+  router.get('/getMovies', controller.puppeteer.getMovies);
 };

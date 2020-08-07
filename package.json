@@ -1,23 +1,65 @@
 {
   "name": "work-spider",
-  "version": "0.0.1",
-  "description": "爬虫实例",
-  "main": "index.js",
+  "version": "1.0.0",
+  "description": "某视频爬虫",
+  "private": true,
+  "egg": {
+    "typescript": true,
+    "declarations": true
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "egg-scripts start --daemon --title=egg-server-work-spider",
+    "stop": "egg-scripts stop --title=egg-server-work-spider",
+    "dev": "egg-bin dev",
+    "debug": "egg-bin debug",
+    "test-local": "egg-bin test",
+    "test": "npm run lint -- --fix && npm run test-local",
+    "cov": "egg-bin cov",
+    "tsc": "ets && tsc -p tsconfig.json",
+    "ci": "npm run lint && npm run cov && npm run tsc",
+    "autod": "autod",
+    "lint": "eslint . --ext .ts",
+    "clean": "ets clean"
+  },
+  "dependencies": {
+    "carlo": "^0.9.46",
+    "chalk": "^4.1.0",
+    "cheerio": "^1.0.0-rc.3",
+    "crawler": "^1.2.2",
+    "egg": "^2.6.1",
+    "egg-scripts": "^2.6.0",
+    "inquirer": "^7.3.3",
+    "puppeteer-core": "^5.2.1",
+    "superagent": "^5.3.1"
+  },
+  "devDependencies": {
+    "@types/carlo": "^0.9.1",
+    "@types/cheerio": "^0.22.21",
+    "@types/mocha": "^2.2.40",
+    "@types/node": "^7.0.12",
+    "@types/puppeteer-core": "^2.0.0",
+    "@types/superagent": "^4.1.8",
+    "@types/supertest": "^2.0.0",
+    "autod": "^3.0.1",
+    "autod-egg": "^1.1.0",
+    "egg-bin": "^4.11.0",
+    "egg-ci": "^1.8.0",
+    "egg-mock": "^3.16.0",
+    "eslint": "^6.7.2",
+    "eslint-config-egg": "^8.0.0",
+    "tslib": "^1.9.0",
+    "typescript": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "ci": {
+    "version": "8"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sml782/work-spider.git"
+    "url": ""
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sml782/work-spider/issues"
-  },
-  "homepage": "https://github.com/sml782/work-spider#readme",
-  "dependencies": {
-    "crawler": "^1.2.2"
-  }
+  "author": "sml782",
+  "license": "MIT"
 }

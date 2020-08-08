@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+const https = require('https');
 const puppeteer = require('puppeteer-core');
 const findChrome = require('carlo/lib/find_chrome.js');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
 const url = require('url');
 const jimp = require('jimp');
+const jsQR = require('jsqr');
+const pngjs = require('pngjs');
 
 async function mobileLogin(page) {
   const phoneBtn = await page.$('div.others-item .item-text');
@@ -66,9 +69,32 @@ async function weixinGetImg(browser, iframeUrl) {
   return fullSrc;
 }
 
-async function decodeImgSrc(imgSrc) {
-  const imgBuffer = await jimp.read(imgSrc);
-}
+// async function decodeImgSrc(imgSrc) {
+//   console.log(imgSrc);
+//   https.get(imgSrc, res => {
+//     const buffer = [];
+//     res.on('data', d => {
+//       buffer.push(d);
+//     });
+//     res.on('end', () => {
+//       const buff = Buffer.concat(buffer);
+//       console.log(buff);
+//       // const image = pngjs.PNG.sync.read(buff);
+//       // const data = new Uint8Array(image.data);
+//       // console.log(data);
+//       new pngjs.PNG().parse(buff, (error, data) => {
+//         console.log(error);
+//         console.log(data);
+//       });
+//     });
+//   });
+//   const img = await jimp.read(imgSrc);
+//   console.dir(img.getBase64);
+//   img.getBase64(jimp.MIME_PNG, (err, buffer) => {
+//     console.log(buffer);
+//     jsQR(buffer);
+//   });
+// }
 
 // async function weixinLogin(page) {
 //   const frame = page.frames().find(frame => frame.name() === 'myframe');
@@ -86,7 +112,7 @@ async function decodeImgSrc(imgSrc) {
     executablePath,
   });
   const page = await browser.newPage();
-  await page.goto('https://passport.kaikeba.com/login');
+  await page.goto('https://passport.kaikeba.com/login', { waitUntil: 'networkidle2' });
   // await page.waitForNavigation();
   await page.waitFor('#login_container > iframe');
   await page.waitFor(1000);
@@ -98,10 +124,10 @@ async function decodeImgSrc(imgSrc) {
     name: 'logintype',
     message: '请选择登录方式',
     choices: [
-      {
-        name: '微信登录(默认)',
-        value: 'weixin',
-      },
+      // {
+      //   name: '微信登录(默认)',
+      //   value: 'weixin',
+      // },
       {
         name: '手机号登录',
         value: 'mobile',
@@ -119,11 +145,11 @@ async function decodeImgSrc(imgSrc) {
       break;
   }
 
-  const frameEleSrc = await page.$eval('#login_container > iframe', selector => selector.src);
-  // console.log(frameEle, frame);
-  // console.log(frameEleSrc);
-  const qrcodeSrc = await weixinGetImg(browser, frameEleSrc);
-  console.log(qrcodeSrc);
+  // const frameEleSrc = await page.$eval('#login_container > iframe', selector => selector.src);
+  // // console.log(frameEle, frame);
+  // // console.log(frameEleSrc);
+  // const qrcodeSrc = await weixinGetImg(browser, frameEleSrc);
+  // console.log(qrcodeSrc);
 
 
   await page.waitForNavigation();
@@ -133,5 +159,18 @@ async function decodeImgSrc(imgSrc) {
   const dakeList = await page.$$('#app > div.home-area.router-view > div.type-course > div > div.ivu-tabs-content > div:nth-child(1) > div > div > div > div:nth-child(2) > div.dake');
   console.log(dakeList.length);
 
-  await browser.close();
+  const index = 0;
+  while (index < dakeList.length) {
+    const intoBtn = await dakeList[index].$('button.goon-and-review-btn');
+    await intoBtn.click();
+    await page.waitForNavigation({ waitUntil: 'networkidle2' });
+    await page.waitFor(1000);
+
+    const chapterList = await page.$('div.chapter .ivu-collapse .ivu-collapse');
+    console.log(chapterList.length);
+  }
+
+  // await browser.close();
+
+  // decodeImgSrc('https://open.weixin.qq.com/connect/qrcode/051j9t5445V20w3w');
 })();
